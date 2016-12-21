@@ -20,14 +20,23 @@ public class MovingObject {
     private Vector2 velocity;
     private Texture pic;
     private Rectangle bounds;
+    private Vector3 position;
     
     public MovingObject(int x, int y, int width, int height){
         velocity = new Vector2(0,0);
-        pic = new Texture("");
+        pic = new Texture("badlogic.jpg");
         bounds = new Rectangle(x,y,width,height);
         
     }
     
+    
+    public float getPositionX(){
+        return this.position.x;
+    }
+    
+    public float getPositionY(){
+        return this.position.y;
+    }
     
     //
     public void move(){
