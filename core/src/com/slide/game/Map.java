@@ -5,6 +5,7 @@
  */
 package com.slide.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,6 @@ import java.util.Scanner;
  * @author Peter
  */
 public class Map {
-
     // instance variables
     private List<Object> object;
     private boolean collide;
@@ -22,6 +22,8 @@ public class Map {
     private int tempY;
     private int tempWidth;
     private int tempHeight;
+    private String tempImg;
+    private Texture tempTexture;
 
     /**
      * Constructor for Map
@@ -34,13 +36,22 @@ public class Map {
             tempY = input.nextInt();
             tempWidth = input.nextInt();
             tempHeight = input.nextInt();
-            object.add(new Object(tempX, tempY, tempWidth, tempHeight));
+            tempImg = input.next();
+            tempTexture = new Texture(tempImg);
+            object.add(new Object(tempX, tempY, tempWidth, tempHeight, tempTexture));
             input.nextLine();
         }
     }
-
-    public void render(SpriteBatch batch) {
-
+    
+    /**
+     * Method to render the objects
+     * @param batch The SpriteBatch
+     * @param object The object
+     */
+    public void render(SpriteBatch batch, Object object) {
+        for (Object object1 : this.object) {
+            object.render(batch);
+        }
     }
 
     /**

@@ -27,10 +27,10 @@ public class Object {
     private final float MOVEMENT = 100;
     
     
-    public Object(int x, int y, int width, int height){
+    public Object(int x, int y, int width, int height, Texture img){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);
-        object = new Texture("badlogic.jpg");
+        object = img;
         bounds = new Rectangle(x, y, width, height);
     }
     
@@ -51,7 +51,11 @@ public class Object {
     }
     
     public Rectangle getBounds(){
-        return bounds;
+        return this.bounds;
+    }
+    
+    public Texture getTexture(){
+        return this.object;
     }
     
 }
