@@ -7,6 +7,7 @@ package com.slide.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +21,26 @@ public class Object {
     private Texture object;
     private Vector3 position;
     private Vector3 velocity;
-    private boolean collide;
+    private Rectangle bounds;
     
     // 
     private final float MOVEMENT = 100;
     
     
-    public Object(int x, int y){
+    public Object(int x, int y, int width, int height){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);
-        //object = new Texture();
+        object = new Texture("badlogic.jpg");
+        bounds = new Rectangle(x, y, width, height);
     }
     
+    public float getPositionX(){
+        return this.position.x;
+    }
+    
+    public float getPositionY(){
+        return this.position.y;
+    }
     
     public void render(SpriteBatch batch) {
         batch.draw(object, position.x, position.y);
@@ -39,6 +48,10 @@ public class Object {
     
     public void dispose() {
         object.dispose();
+    }
+    
+    public Rectangle getBounds(){
+        return bounds;
     }
     
 }
