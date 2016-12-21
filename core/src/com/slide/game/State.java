@@ -19,10 +19,17 @@ public abstract class State {
     
     public State(StateManager sm){
         this.sm = sm;
+        this.cam = new OrthographicCamera();
     }
     
     public abstract void render(SpriteBatch batch);
     public abstract void update(float deltaTime);
     public abstract void handleInput();
     public abstract void dispose();
+    
+    public void setCameraPosition(float x, float y){
+        cam.position.x = x;
+        cam.position.y = y;
+        cam.update();
+    }
 }
