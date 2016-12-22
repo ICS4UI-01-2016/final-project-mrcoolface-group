@@ -17,7 +17,6 @@ import java.util.Scanner;
 public class Map {
     // instance variables
     private List<Object> object;
-    private boolean collide;
     private int tempX;
     private int tempY;
     private int tempWidth;
@@ -42,9 +41,10 @@ public class Map {
             input.nextLine();
         }
     }
-    
+
     /**
      * Method to render the objects
+     *
      * @param batch The SpriteBatch
      * @param object The object
      */
@@ -64,6 +64,7 @@ public class Map {
      * an object
      */
     public boolean didCollide(MovingObject player, Object object) {
+        boolean collide = false;
         for (Object object1 : this.object) {
             if (player.getBounds() == object.getBounds()) {
                 collide = true;
