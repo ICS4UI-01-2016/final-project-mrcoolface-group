@@ -19,6 +19,14 @@ public class StateManager {
         states = new Stack<State>();
     }
     
+    public void update(float deltaTime){
+        states.peek().update(deltaTime);
+    }
+    
+    public void handleInput() {
+        states.peek().handleInput();
+    }
+    
     public void push(State s){
         states.push(s);
     }

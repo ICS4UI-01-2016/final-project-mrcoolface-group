@@ -30,15 +30,14 @@ public class PlayState extends State{
         //this.map = new Map(s);
         this.player = new Player(200, 200, PLAYER_WIDTH, PLAYER_HEIGHT);
         setCameraPosition(player.getMid().x-(VIEW_WIDTH/2), player.getMid().y-(VIEW_HEIGHT/2));
+        this.velocity = new Vector2(0,0);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         setCameraPosition(player.getMid().x-(VIEW_WIDTH/2), player.getMid().y-(VIEW_HEIGHT/2));
-        batch.begin();
         //map.render(batch);
         player.render(batch);
-        batch.end();
     }
 
     @Override

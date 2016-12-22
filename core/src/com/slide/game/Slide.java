@@ -15,7 +15,6 @@ public class Slide extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
                 
                 sm = new StateManager();
                 sm.push(new PlayState(sm));
@@ -25,8 +24,10 @@ public class Slide extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                sm.handleInput();
+                sm.update(Gdx.graphics.getDeltaTime());
 		batch.begin();
-		batch.draw(img, 0, 0);
+                sm.render(batch);
 		batch.end();
 	}
 	

@@ -24,9 +24,9 @@ public class MovingObject {
     
     public MovingObject(int x, int y, int width, int height){
         velocity = new Vector2(0,0);
-        pic = new Texture("badlogic.jpg");
+        pic = new Texture("Crosseyed.gif");
         bounds = new Rectangle(x,y,width,height);
-        position.set(x, y);
+        position = new Vector2(x, y);
     }
     
     
@@ -47,12 +47,14 @@ public class MovingObject {
     
     //
     public void render(SpriteBatch batch){
-        batch.draw(pic, bounds.x, bounds.y);
+        batch.draw(pic, position.x, position.y);
     }
     
     //
     public void setVelocity(Vector2 velo){
-        this.velocity = velo;
+        if(velo!=null){
+            this.velocity.set(velo);
+        }
     }
     
     //
