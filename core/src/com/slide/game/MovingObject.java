@@ -20,13 +20,13 @@ public class MovingObject {
     private Vector2 velocity;
     private Texture pic;
     private Rectangle bounds;
-    private Vector3 position;
+    private Vector2 position;
     
     public MovingObject(int x, int y, int width, int height){
         velocity = new Vector2(0,0);
         pic = new Texture("badlogic.jpg");
         bounds = new Rectangle(x,y,width,height);
-        
+        position.set(x, y);
     }
     
     
@@ -40,8 +40,9 @@ public class MovingObject {
     
     //
     public void move(){
-        bounds.y = velocity.y;
-        bounds.x = velocity.x;
+        bounds.y += velocity.y;
+        bounds.x += velocity.x;
+        position.set(bounds.x, bounds.y);
     }
     
     //
@@ -62,6 +63,10 @@ public class MovingObject {
     //
     public void dispose(){
         pic.dispose();
+    }
+    
+    public Vector2 getMid(){
+        return new Vector2(this.position.x+(this.bounds.x/2), this.position.y+(this.bounds.y/2));
     }
     
     

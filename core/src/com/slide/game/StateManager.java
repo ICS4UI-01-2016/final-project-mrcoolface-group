@@ -5,6 +5,7 @@
  */
 package com.slide.game;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Stack;
 
 /**
@@ -30,5 +31,9 @@ public class StateManager {
     public void set(State s){
         pop();
         push(s);
+    }
+    
+    public void render(SpriteBatch batch){
+        states.peek().render(batch);
     }
 }

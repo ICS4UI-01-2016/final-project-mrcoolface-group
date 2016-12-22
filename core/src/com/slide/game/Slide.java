@@ -9,11 +9,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Slide extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+        
+        private StateManager sm;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+                
+                sm = new StateManager();
+                sm.push(new PlayState(sm));
 	}
 
 	@Override
