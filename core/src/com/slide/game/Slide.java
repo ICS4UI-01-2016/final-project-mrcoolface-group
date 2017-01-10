@@ -17,7 +17,6 @@ public class Slide extends ApplicationAdapter {
 		batch = new SpriteBatch();
                 
                 sm = new StateManager();
-                sm.push(new PlayState(sm));
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class Slide extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
+                img.dispose();
 		batch.dispose();
-		img.dispose();
 	}
 }

@@ -10,21 +10,13 @@ import java.util.Stack;
 
 /**
  *
- * @author Josh
+ * @author lamon
  */
 public class StateManager {
     private Stack<State> states;
     
     public StateManager(){
         states = new Stack<State>();
-    }
-    
-    public void update(float deltaTime){
-        states.peek().update(deltaTime);
-    }
-    
-    public void handleInput() {
-        states.peek().handleInput();
     }
     
     public void push(State s){
@@ -41,7 +33,16 @@ public class StateManager {
         push(s);
     }
     
+    public void update(float deltaTime){
+        states.peek().update(deltaTime);
+    }
+    
     public void render(SpriteBatch batch){
         states.peek().render(batch);
     }
+
+    public void handleInput() {
+        states.peek().handleInput();
+    }
+    
 }
