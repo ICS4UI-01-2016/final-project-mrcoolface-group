@@ -17,6 +17,7 @@ public class Slide extends ApplicationAdapter {
 		batch = new SpriteBatch();
                 
                 sm = new StateManager();
+                sm.push(new MenuState(sm));
 	}
 
 	@Override
