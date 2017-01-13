@@ -46,7 +46,7 @@ public class PlayState extends State {
         batch.setProjectionMatrix(getCombinedCamera());
         // draw the background
         batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
-        batch.draw(pauseButton, getViewWidth()/2 - pauseButton.getWidth()/2, getViewHeight()/2);
+        batch.draw(pauseButton, 680, 680, 80, 80);
         // draw the score
         font.draw(batch, "" + score, 150, 150);
     }
@@ -71,8 +71,8 @@ public class PlayState extends State {
             // convert that point to "game coordinates"
             unproject(touch);
             // check if button is checked
-            float buttonX = 200 - pauseButton.getWidth() / 2;
-            float buttonY = 100;
+            float buttonX = 680;
+            float buttonY = 680;
             if (touch.x > buttonX && touch.x < buttonX + pauseButton.getWidth() && touch.y > buttonY && touch.y < buttonY + pauseButton.getHeight()) {
                 StateManager gsm = getStateManager();
                 gsm.push(new PauseState(gsm));
