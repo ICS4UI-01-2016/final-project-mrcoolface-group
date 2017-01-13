@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class Piece {
     
-    private Block[] blocks;
+    public Block[] blocks;
     private char color;
     private Vector2 position;
     
@@ -39,9 +39,9 @@ public abstract class Piece {
         return this.blocks;
     }
     
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch, Vector2 relative){
         for(Block block: this.blocks){
-            
+            block.render(batch, this.position.cpy().scl(Block.IMAGE_SIZE).add(relative));
         }
     }
     

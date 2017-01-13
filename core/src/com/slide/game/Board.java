@@ -7,6 +7,7 @@ package com.slide.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,7 +17,8 @@ public class Board {
     
     private boolean[][] spots;
     private Vector2 position;
-    private Block[] blocks;
+    private ArrayList<Block> blocks;
+    private Piece piece;
     
     public final int BOARD_WIDTH = 10;
     public final int BOARD_HEIGHT = 22;
@@ -50,12 +52,31 @@ public class Board {
         return true;
     }
     
+    public void makePiece(){
+        this.piece = new T_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+    }
+    
+    public void killSpot(int x, int y){
+        boolean found = false;
+        for(Block block: blocks){
+            if(!found
+                    && block.getPosition().x == x 
+                    && block.getPosition().y == y){
+                found = true;
+                
+            }
+        }
+    }
+    
     public Vector2 getPosition(){
         return this.position;
     }
     
     public void render(SpriteBatch batch){
-        
+        for(Block block: blocks){
+            block.render(batch, position);
+        }
+        this.piece.render(batch, position);
     }
     
 }

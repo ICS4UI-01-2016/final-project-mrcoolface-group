@@ -15,6 +15,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Block {
     
+    public static final int IMAGE_SIZE = 255;
+    
     private Vector2 position;
     private char color;
     private Texture blockPic;
@@ -31,6 +33,10 @@ public class Block {
      public void movePosition(int x, int y){
          this.position.add(x, y);
      }
+     
+     public Vector2 getPosition(){
+         return this.position;
+     }
      //rotate clockwise
      public void rotateCW(){
          this.position.rotate(90);
@@ -40,8 +46,8 @@ public class Block {
          this.position.rotate(-90);
      }
      
-     public void render(SpriteBatch batch, int x, int y){
-         batch.draw(blockPic, x, y);
+     public void render(SpriteBatch batch, Vector2 relative){
+         batch.draw(blockPic, this.position.scl(this.IMAGE_SIZE).x+relative.x, this.position.scl(this.IMAGE_SIZE).y+relative.y);
      }
      
      public void dispose(){
