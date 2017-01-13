@@ -15,52 +15,41 @@ import com.badlogic.gdx.math.Vector3;
  *
  * @author Peter
  */
-public class PlayState extends State {
+public class PauseState extends State{
     // instance variables
+    private Texture bg;
+    private Texture resumeButton;
     private int score;
     private BitmapFont font;
-    private Texture bg;
-    private Texture pauseButton;
+    private Texture musicButton;
+    private Texture quitButton;
     
-    private final int WIDTH = 800;
-    private final int HEIGHT = 800;
-
-    public PlayState(StateManager sm) {
-        super(sm);
-        setCameraView(WIDTH, HEIGHT);
+    
+    public PauseState(StateManager gsm){
+        super(gsm);
+        setCameraView(800, 800);
         setCameraPosition(getViewWidth() / 2, getViewHeight() / 2);
-        // load in pictures
         bg = new Texture("bg.png");
-        pauseButton = new Texture("pauseButton.png");
-        // set up the score and font
-        score = 0;
-        font = new BitmapFont();
+        resumeButton = new Texture("playButton.png");
+        musicButton = new Texture("soundButton.png");
+        quitButton = new Texture("quitButton.png");
+        font = new BitmapFont(); // default font - 15pt Arial
+        
     }
 
-    public int getScore(){
-        return score;
-    }
-    
     @Override
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
-        // draw the background
         batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
-        batch.draw(pauseButton, getViewWidth()/2 - pauseButton.getWidth()/2, getViewHeight()/2);
-        // draw the score
-        font.draw(batch, "" + score, 150, 150);
+        font.draw(batch, "" + score, getViewWidth() / 2, getViewHeight() - 100);
+        batch.draw(resumeButton, getViewWidth() / 2 - resumeButton.getWidth() / 2, getViewHeight() / 2);
+        batch.draw(musicButton, getViewWidth() / 2 - musicButton.getWidth() / 2, getViewHeight() / 2);
+        batch.draw(quitButton, getViewWidth() / 2 - quitButton.getWidth() / 2, getViewHeight() / 2);
     }
 
     @Override
     public void update(float deltaTime) {
-        /*
-        if (if the player looses) {
-            // end the game 
-            StateManager gsm = getStateManager();
-            // pop off the game screen to go to menu
-            gsm.pop();
-        }
-        */
+        
     }
 
     @Override
@@ -69,22 +58,23 @@ public class PlayState extends State {
             // get the mouse click/touch position
             Vector3 touch = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             // convert that point to "game coordinates"
-            unproject(touch);
+            //unproject(touch);
             // check if button is checked
-            float buttonX = 200 - pauseButton.getWidth() / 2;
-            float buttonY = 100;
-            if (touch.x > buttonX && touch.x < buttonX + pauseButton.getWidth() && touch.y > buttonY && touch.y < buttonY + pauseButton.getHeight()) {
+            float buttonX = getViewWidth() / 2 - resumeButton.getWidth() / 2;
+            float buttonY = getViewHeight() / 2;
+            if (touch.x > buttonX && touch.x < buttonX + resumeButton.getWidth() && touch.y > buttonY && touch.y < buttonY + resumeButton.getHeight()) {
                 StateManager gsm = getStateManager();
-                gsm.push(new PauseState(gsm));
+                gsm.pop();
             }
         }
     }
 
     @Override
     public void dispose() {
-        // dispose of textures
         bg.dispose();
-        pauseButton.dispose();
+        resumeButton.dispose();
+        musicButton.dispose();
     }
-
+    
+    
 }
