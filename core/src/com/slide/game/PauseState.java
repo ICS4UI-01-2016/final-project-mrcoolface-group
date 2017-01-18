@@ -46,7 +46,9 @@ public class PauseState extends State{
     @Override
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
-        batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
+        StateManager gsm = getStateManager();
+        gsm.getState(1).render(batch);
+        //batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
         font.draw(batch, "Score: " + score, getViewWidth()/2 - 30, 700);
         batch.draw(resumeButton, getViewWidth()/2 - RESUME_BUTTON_WIDTH/2, getViewHeight()/2, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
         batch.draw(musicButton, getViewWidth()/4*3 - BUTTON_WIDTH/2, getViewHeight()/2, BUTTON_WIDTH, BUTTON_HEIGHT);
