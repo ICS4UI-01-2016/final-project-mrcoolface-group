@@ -5,6 +5,8 @@
  */
 package com.slide.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -17,6 +19,7 @@ import com.badlogic.gdx.math.Vector3;
 public abstract class State {
     private OrthographicCamera cam;
     private StateManager stateManager;
+     Music music;
     
     public State(StateManager sm){
         stateManager = sm;
@@ -27,6 +30,10 @@ public abstract class State {
     public abstract void update(float deltaTime);
     public abstract void handleInput();
     public abstract void dispose();
+    
+    public boolean isPlayingMusic(){
+        return music.isPlaying();
+    }
     
     public StateManager getStateManager(){
         return stateManager;

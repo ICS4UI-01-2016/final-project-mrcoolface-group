@@ -15,6 +15,11 @@ import java.util.Stack;
 public class StateManager {
     private Stack<State> states;
     
+    
+    public State getState(int pos){
+        return states.get(pos);
+    }
+    
     public StateManager(){
         states = new Stack<State>();
     }

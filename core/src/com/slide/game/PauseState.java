@@ -23,15 +23,21 @@ public class PauseState extends State{
     private BitmapFont font;
     private Texture musicButton;
     private Texture quitButton;
+    private boolean isPlaying = false;
     
+    
+    private final int RESUME_BUTTON_WIDTH = 200;
+    private final int RESUME_BUTTON_HEIGHT = 200;
+    private final int BUTTON_WIDTH = 100;
+    private final int BUTTON_HEIGHT = 100;
     
     public PauseState(StateManager gsm){
         super(gsm);
         setCameraView(800, 800);
         setCameraPosition(getViewWidth() / 2, getViewHeight() / 2);
         bg = new Texture("bg.png");
-        resumeButton = new Texture("playButton.png");
-        musicButton = new Texture("soundButton.png");
+        resumeButton = new Texture("resumeButton.png");
+        musicButton = new Texture("musicButton.png");
         quitButton = new Texture("quitButton.png");
         font = new BitmapFont(); // default font - 15pt Arial
         
@@ -41,10 +47,10 @@ public class PauseState extends State{
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
         batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
-        font.draw(batch, "" + score, getViewWidth() / 2, getViewHeight() - 100);
-        batch.draw(resumeButton, getViewWidth() / 2 - resumeButton.getWidth() / 2, getViewHeight() / 2);
-        batch.draw(musicButton, getViewWidth() / 2 - musicButton.getWidth() / 2, getViewHeight() / 2);
-        batch.draw(quitButton, getViewWidth() / 2 - quitButton.getWidth() / 2, getViewHeight() / 2);
+        font.draw(batch, "Score: " + score, getViewWidth()/2 - 30, 700);
+        batch.draw(resumeButton, getViewWidth()/2 - RESUME_BUTTON_WIDTH/2, getViewHeight()/2, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
+        batch.draw(musicButton, getViewWidth()/4*3 - BUTTON_WIDTH/2, getViewHeight()/2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        batch.draw(quitButton, getViewWidth()/4 - BUTTON_WIDTH/2, getViewHeight()/2, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     @Override
@@ -58,13 +64,32 @@ public class PauseState extends State{
             // get the mouse click/touch position
             Vector3 touch = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             // convert that point to "game coordinates"
-            //unproject(touch);
+            unproject(touch);
             // check if button is checked
-            float buttonX = getViewWidth() / 2 - resumeButton.getWidth() / 2;
-            float buttonY = getViewHeight() / 2;
-            if (touch.x > buttonX && touch.x < buttonX + resumeButton.getWidth() && touch.y > buttonY && touch.y < buttonY + resumeButton.getHeight()) {
+            float resumeButtonX = getViewWidth()/2 - RESUME_BUTTON_WIDTH/2;
+            float buttonY = getViewHeight()/2;
+            if (touch.x > resumeButtonX && touch.x < resumeButtonX + RESUME_BUTTON_WIDTH && touch.y > buttonY && touch.y < buttonY + RESUME_BUTTON_HEIGHT) {
                 StateManager gsm = getStateManager();
                 gsm.pop();
+            }
+            // quit button
+            float quitButtonX = getViewWidth()/4 - BUTTON_WIDTH/2;
+            if (touch.x > quitButtonX && touch.x < quitButtonX + RESUME_BUTTON_WIDTH && touch.y > buttonY && touch.y < buttonY + RESUME_BUTTON_HEIGHT) {
+                StateManager gsm = getStateManager();
+                gsm.pop();
+                gsm.pop();
+            }
+            // music button
+            float musicButtonX = getViewWidth()/4*3 - BUTTON_WIDTH/2;
+            if (touch.x > musicButtonX && touch.x < musicButtonX + RESUME_BUTTON_WIDTH && touch.y > buttonY && touch.y < buttonY + RESUME_BUTTON_HEIGHT) {
+                StateManager gsm = getStateManager();
+                State ms = gsm.getState(0);
+                if(ms.isPlayingMusic() == true){
+                    ms.music.pause();
+                }else if(ms.isPlayingMusic() == false){
+                    ms.music.play();
+                }
+                
             }
         }
     }
@@ -74,6 +99,7 @@ public class PauseState extends State{
         bg.dispose();
         resumeButton.dispose();
         musicButton.dispose();
+        quitButton.dispose();
     }
     
     

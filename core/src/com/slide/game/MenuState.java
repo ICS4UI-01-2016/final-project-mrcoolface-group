@@ -6,6 +6,7 @@ package com.slide.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +32,9 @@ public class MenuState extends State{
         Preferences pref = Gdx.app.getPreferences("highscore");
         highScore = pref.getInteger("highscore", 0);
         font = new BitmapFont(); //default 15pt Arieal
-        
+        music = Gdx.audio.newMusic(Gdx.files.internal("tetrisMusic.mp3"));
+        music.play();
+        music.setLooping(true);
     }
     
     public void updateScore(){
