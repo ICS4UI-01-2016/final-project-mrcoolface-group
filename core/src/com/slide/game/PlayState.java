@@ -6,6 +6,7 @@
 package com.slide.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,7 @@ public class PlayState extends State {
     private BitmapFont font;
     private Texture bg;
     private Texture pauseButton;
+    private Board board;
     
     private final int WIDTH = 800;
     private final int HEIGHT = 800;
@@ -35,6 +37,7 @@ public class PlayState extends State {
         // set up the score and font
         score = 0;
         font = new BitmapFont();
+        this.board = new Board(75, 50);
     }
 
     public int getScore(){
@@ -49,6 +52,8 @@ public class PlayState extends State {
         batch.draw(pauseButton, 680, 680, 80, 80);
         // draw the score
         font.draw(batch, "" + score, 150, 150);
+        //draw board
+        board.render(batch);
     }
 
     @Override
@@ -61,6 +66,10 @@ public class PlayState extends State {
             gsm.pop();
         }
         */
+        if(!board.hasPiece()){
+            board.makePiece();
+        }
+        board.update(deltaTime);
     }
 
     @Override
@@ -78,6 +87,7 @@ public class PlayState extends State {
                 gsm.push(new PauseState(gsm));
             }
         }
+        board.handleInput();
     }
 
     @Override

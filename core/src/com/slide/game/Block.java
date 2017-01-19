@@ -15,19 +15,20 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Block {
     
-    public static final int IMAGE_SIZE = 255;
+    public static final int IMAGE_SIZE = 25;
     
     private Vector2 position;
     private char color;
     private Texture blockPic;
     
-     public Block(int x, int y, char color){
+     public Block(double x, double y, char color){
          this.color = color;
-         this.position = new Vector2(x, y);
+         this.position = new Vector2((float)x, (float)y);
+         blockPic = new Texture("images.jpg");
      }
      //set block position
-     public void setPosition(int x, int y){
-         this.position.set(x, y);
+     public void setPosition(double x, double y){
+         this.position.set((float)x, (float)y);
      }
      //move position
      public void movePosition(int x, int y){
@@ -47,7 +48,7 @@ public class Block {
      }
      
      public void render(SpriteBatch batch, Vector2 relative){
-         batch.draw(blockPic, this.position.scl(this.IMAGE_SIZE).x+relative.x, this.position.scl(this.IMAGE_SIZE).y+relative.y);
+         batch.draw(blockPic, this.position.cpy().scl(this.IMAGE_SIZE).x+relative.x+(IMAGE_SIZE/2), this.position.cpy().scl(this.IMAGE_SIZE).y+relative.y+(IMAGE_SIZE/2), IMAGE_SIZE, IMAGE_SIZE);
      }
      
      public void dispose(){

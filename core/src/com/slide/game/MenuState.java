@@ -67,7 +67,7 @@ public class MenuState extends State{
     @Override
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
-        batch.draw(bg, 0, 0, 1423, 800);
+        batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
         batch.draw(button, getViewWidth()/2 - button.getWidth()/2, getViewHeight()/2);
         font.draw(batch, highScore + "", getViewWidth()/2, getViewHeight() - 100);
     }

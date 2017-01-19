@@ -16,10 +16,10 @@ public class Cude_Piece extends Piece{
     public Cude_Piece(int x, int y) {
         super(COLOR, x, y);
         blocks = new Block[4];
-        blocks[0] = new Block(0, 0, COLOR);
-        blocks[1] = new Block(1, 0, COLOR);
-        blocks[2] = new Block(1, -1, COLOR);
-        blocks[3] = new Block(0, -1, COLOR);
+        blocks[0] = new Block(0.5, 0.5, COLOR);
+        blocks[1] = new Block(0.5, -0.5, COLOR);
+        blocks[2] = new Block(-0.5, 0.5, COLOR);
+        blocks[3] = new Block(-0.5, -0.5, COLOR);
     }
     
 }
