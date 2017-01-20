@@ -22,6 +22,15 @@ public abstract class Piece {
         this.color = color;
         this.position = new Vector2(x, y);
     }
+    
+    public Piece(char color, int x, int y, Block[] blocks){
+        this.color = color;
+        this.position = new Vector2(x, y);
+        this.blocks = blocks;
+    }
+    
+    
+    
     //rotate all blocks clockwise
     public void rotateCW(){
         for(Block block: blocks){

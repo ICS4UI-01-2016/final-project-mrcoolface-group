@@ -88,6 +88,12 @@ public class Board {
         }
     }
     
+    public boolean checkBounds(Piece piece){
+        boolean check = true;
+        
+        return check;
+    }
+    
     public Vector2 getPosition(){
         return this.position;
     }
@@ -118,6 +124,7 @@ public class Board {
     }
     
     public void handleInput(){
+        //take input
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
             //move piece left
             this.piece.move(-1, 0);
@@ -131,6 +138,30 @@ public class Board {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
             this.piece.rotateCCW();
+        }
+        //check if it moves out of bounds
+        boolean boundsCheck = true;
+        
+        for(Block block: this.piece.getBlocks()){
+            if(block.getPosition().x+this.piece.getPosition().x < 0 ||
+                    block.getPosition().x+this.piece.getPosition().x > 9){
+                boundsCheck = false;
+            }
+        }
+        
+        if(!boundsCheck){
+                if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+                this.piece.move(1, 0);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+                this.piece.move(-1, 0);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+                this.piece.rotateCCW();
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+                this.piece.rotateCW();
+            }
         }
     }
     
