@@ -29,8 +29,6 @@ public abstract class Piece {
         this.blocks = blocks;
     }
     
-    
-    
     //rotate all blocks clockwise
     public void rotateCW(){
         for(Block block: blocks){

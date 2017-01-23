@@ -37,7 +37,7 @@ public class PlayState extends State {
         // set up the score and font
         score = 0;
         font = new BitmapFont();
-        this.board = new Board(75, 50);
+        this.board = new Board(150, 50);
     }
 
     public int getScore(){

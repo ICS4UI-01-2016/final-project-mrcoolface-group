@@ -21,6 +21,10 @@ public class Board {
     private Vector2 position;
     private ArrayList<Block> blocks;
     private Piece piece;
+    private Piece[] upComing;
+    private final double SLOW_FALL = 0.5;
+    private final double FAST_FALL = 0.1;
+    private boolean fastFall;
     private float delta;
     
     public final int BOARD_WIDTH = 10;
@@ -39,6 +43,8 @@ public class Board {
                 spot = false;
             }
         }
+        this.fastFall=false;
+        this.upComing = new Piece[3];
     }
     
     //check if a spot has a block
@@ -57,19 +63,37 @@ public class Board {
         return true;
     }
     
-    public void makePiece(){
-        int random = (int)Math.floor(Math.random()*3);
-        switch(random){
-            case 0: this.piece = new T_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
-                break;
-            case 1: this.piece = new L_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
-                break;
-            case 2: this.piece = new J_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
-                break;
-            default: this.piece = new Cude_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
-                break;
-                
+    public Piece makePiece(){
+        //randomize and return a piece
+        switch((int)Math.floor(Math.random()*7)){
+            case 0: return new T_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 1: return new L_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 2: return new J_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 3: return new S_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 4: return new Z_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 5: return new I_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            case 6: return new Cude_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
+            default: return new Cude_Piece(BOARD_WIDTH/2, BOARD_HEIGHT);
         }
+    }
+    
+    public Piece takeFromUpComing(){
+        //if nothing in array fill it
+        if(this.upComing[0] == null){
+            for(Piece piece: upComing){
+                piece = makePiece();
+            }
+        }
+        //save first piece
+        Piece piece = this.upComing[0];
+        //move everthing down
+        for(int i=0; i<this.upComing.length-1;i++){
+            this.upComing[i]=this.upComing[i+1];
+        }
+        //make new piece for last spot
+        this.upComing[this.upComing.length-1] = makePiece();
+        //return saved piece
+        return piece;
     }
     
     public boolean hasPiece(){
@@ -88,37 +112,46 @@ public class Board {
         }
     }
     
-    public boolean checkBounds(Piece piece){
-        boolean check = true;
-        
-        return check;
-    }
-    
     public Vector2 getPosition(){
         return this.position;
     }
     
     public void render(SpriteBatch batch){
         if(blocks.size()>0){
-        for(Block block: blocks){
-            block.render(batch, position);
-        }
+            for(Block block: blocks){
+                block.render(batch, position);
+            }
         }
         this.piece.render(batch, position);
+        
     }
     
     public void update(float deltaTime){
+        //make a piece if there is not one
+        if(!hasPiece()){
+            this.piece = makePiece();
+        }
+        //set fallspeed
+        double fallSpeed;
+        if(this.fastFall){
+            fallSpeed = this.FAST_FALL;
+        }else{
+            fallSpeed = this.SLOW_FALL;
+        }
         if(this.piece.stop(spots)){
+            //transfer blocks from piece to board
             for(Block block: this.piece.getBlocks()){
                 block.movePosition((int)this.piece.getPosition().x, (int)this.piece.getPosition().y);
                 spots[(int)block.getPosition().y][(int)block.getPosition().x] = true;
                 blocks.add(block);
             }
-            makePiece();
-        }else if(deltaTime+this.delta>=0.5){
+            this.piece = makePiece();
+        }else if(deltaTime+this.delta>=fallSpeed){
+            //move piece down
             this.piece.move(0,-1);
             this.delta=0;
         }else{
+            //add to time to keep track
             delta+=deltaTime;
         }
     }
@@ -136,9 +169,8 @@ public class Board {
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             this.piece.rotateCW();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            this.piece.rotateCCW();
-        }
+        //activate fast fall if key is pressed
+        this.fastFall = Gdx.input.isKeyPressed(Input.Keys.DOWN);
         //check if it moves out of bounds
         boolean boundsCheck = true;
         
@@ -148,7 +180,7 @@ public class Board {
                 boundsCheck = false;
             }
         }
-        
+        //undo if out of bounds
         if(!boundsCheck){
                 if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
                 this.piece.move(1, 0);
@@ -158,9 +190,6 @@ public class Board {
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
                 this.piece.rotateCCW();
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-                this.piece.rotateCW();
             }
         }
     }

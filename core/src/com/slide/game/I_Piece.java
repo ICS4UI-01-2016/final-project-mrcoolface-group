@@ -9,11 +9,11 @@ package com.slide.game;
  *
  * @author Josh
  */
-public class Straight_Piece extends Piece {
+public class I_Piece extends Piece {
     
     private static final char COLOR = 'b';
 
-    public Straight_Piece(int x, int y) {
+    public I_Piece(int x, int y) {
         super(COLOR, x, y);
         this.blocks = new Block[4];
         blocks[0] = new Block(-1, 0, COLOR);
