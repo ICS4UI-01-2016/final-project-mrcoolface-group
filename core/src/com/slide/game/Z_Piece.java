@@ -11,7 +11,7 @@ package com.slide.game;
  */
 public class Z_Piece extends Piece{
     
-    private static final char COLOR = 'p';
+    private static final char COLOR = 'Z';
     private boolean rotate;
     
     public Z_Piece(int x, int y){

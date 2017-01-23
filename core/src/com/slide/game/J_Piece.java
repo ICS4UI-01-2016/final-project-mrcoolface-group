@@ -11,7 +11,7 @@ package com.slide.game;
  */
 public class J_Piece extends Piece{
     
-    private static final char COLOR = 'g';
+    private static final char COLOR = 'J';
     
     public J_Piece(int x, int y) {
         super(COLOR, x, y);

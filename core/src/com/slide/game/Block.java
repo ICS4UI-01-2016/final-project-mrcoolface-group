@@ -24,7 +24,7 @@ public class Block {
      public Block(double x, double y, char color){
          this.color = color;
          this.position = new Vector2((float)x, (float)y);
-         blockPic = new Texture("images.jpg");
+         blockPic = new Texture("tetris" + color + ".jpg");
      }
      //set block position
      public void setPosition(double x, double y){
