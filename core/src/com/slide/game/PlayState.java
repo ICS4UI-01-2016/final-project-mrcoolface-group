@@ -58,14 +58,13 @@ public class PlayState extends State {
 
     @Override
     public void update(float deltaTime) {
-        /*
-        if (if the player looses) {
+        if (this.board.gameOver() == true) {
             // end the game 
             StateManager gsm = getStateManager();
             // pop off the game screen to go to menu
             gsm.pop();
         }
-        */
+        
         if(!board.hasPiece()){
             board.makePiece();
         }

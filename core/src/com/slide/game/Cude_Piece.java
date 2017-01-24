@@ -11,7 +11,7 @@ package com.slide.game;
  */
 public class Cude_Piece extends Piece{
     
-    private static final char COLOR = 'C';
+    private static final char COLOR = 'O';
     
     public Cude_Piece(int x, int y) {
         super(COLOR, x, y);

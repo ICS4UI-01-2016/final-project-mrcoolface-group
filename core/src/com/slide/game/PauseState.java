@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class PauseState extends State{
     // instance variables
-    private Texture bg;
     private Texture resumeButton;
     private int score;
     private BitmapFont font;
@@ -25,30 +24,39 @@ public class PauseState extends State{
     private Texture quitButton;
     private boolean isPlaying = false;
     
-    
+    // variables for the size of the buttons (otherwise they're huge and nothing works)
     private final int RESUME_BUTTON_WIDTH = 200;
     private final int RESUME_BUTTON_HEIGHT = 200;
     private final int BUTTON_WIDTH = 100;
     private final int BUTTON_HEIGHT = 100;
     
+    /**
+     * Constructor for PauseState
+     * @param gsm game state manager
+     */
     public PauseState(StateManager gsm){
         super(gsm);
+        // create the camera 
         setCameraView(800, 800);
         setCameraPosition(getViewWidth() / 2, getViewHeight() / 2);
-        bg = new Texture("bg.png");
+        // load in the pictures for the buttons
         resumeButton = new Texture("resumeButton.png");
         musicButton = new Texture("musicButton.png");
         quitButton = new Texture("quitButton.png");
+        // create the font
         font = new BitmapFont(); // default font - 15pt Arial
         
     }
 
+    /**
+     * Render method
+     * @param batch SpriteBatch
+     */
     @Override
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
         StateManager gsm = getStateManager();
         gsm.getState(1).render(batch);
-        //batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
         font.draw(batch, "Score: " + score, getViewWidth()/2 - 30, 700);
         batch.draw(resumeButton, getViewWidth()/2 - RESUME_BUTTON_WIDTH/2, getViewHeight()/2, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
         batch.draw(musicButton, getViewWidth()/4*3 - BUTTON_WIDTH/2, getViewHeight()/2, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -60,6 +68,9 @@ public class PauseState extends State{
         
     }
 
+    /**
+     * Method to handle input
+     */
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
@@ -96,9 +107,11 @@ public class PauseState extends State{
         }
     }
 
+    /**
+     * Method to dispose of the things
+     */
     @Override
     public void dispose() {
-        bg.dispose();
         resumeButton.dispose();
         musicButton.dispose();
         quitButton.dispose();
