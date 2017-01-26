@@ -16,21 +16,21 @@ import java.util.ArrayList;
  * @author Josh
  */
 public class Board {
-
+    // instance variables
     private boolean[][] spots;
     private Vector2 position;
     private ArrayList<Block> blocks;
     private Piece piece;
     private Piece[] upComing;
-    private final double SLOW_FALL = 0.5;
-    private final double FAST_FALL = 0.1;
     private boolean fastFall;
     private float delta;
     private boolean over = false;
 
     public final int BOARD_WIDTH = 10;
     public final int BOARD_HEIGHT = 22;
-
+    private final double SLOW_FALL = 0.5;
+    private final double FAST_FALL = 0.1;
+    
     public Board(int x, int y) {
         //make blocks
         this.blocks = new ArrayList<Block>();
@@ -57,6 +57,8 @@ public class Board {
         }
     }
 
+    
+    // check for a full row
     public boolean lineCheck(int y) {
         //check all spots in line y
         for (boolean spot : this.spots[y]) {
@@ -113,6 +115,10 @@ public class Board {
         return piece != null;
     }
 
+    public Piece currentPiece() {
+        return this.piece;
+    }
+
     public void killSpot(int x, int y) {
         boolean found = false;
         for (Block block : blocks) {
@@ -160,6 +166,8 @@ public class Board {
         } else {
             fallSpeed = this.SLOW_FALL;
         }
+
+        
         if (this.piece.stop(spots)) {
             //transfer blocks from piece to board
             for (Block block : this.piece.getBlocks()) {
@@ -180,6 +188,15 @@ public class Board {
             //add to time to keep track
             delta += deltaTime;
         }
+
+        /*for (int i = 0; i <= BOARD_HEIGHT; i++) {
+            if (lineCheck(i)) {
+                for (int j = 0; j <= 10; j++) {
+                    
+                }
+            }
+        }*/
+
     }
 
     public void handleInput() {

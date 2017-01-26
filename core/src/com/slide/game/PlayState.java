@@ -62,13 +62,14 @@ public class PlayState extends State {
             // end the game 
             StateManager gsm = getStateManager();
             // pop off the game screen to go to menu
-            gsm.pop();
+            gsm.push(new GameOverState(gsm));
         }
         
         if(!board.hasPiece()){
             board.makePiece();
         }
         board.update(deltaTime);
+        
     }
 
     @Override
