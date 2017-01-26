@@ -31,15 +31,19 @@ public abstract class Piece {
 
     //rotate all blocks clockwise
     public void rotateCW() {
-        for (Block block : blocks) {
+        for (Block block : this.blocks) {
+            if(block.getPosition().y < 20){
             block.rotateCW();
+            }
         }
     }
 
     //rotate all blocks counterclockwise
     public void rotateCCW() {
         for (Block block : this.blocks) {
+            if(block.getPosition().y < 20){
             block.rotateCCW();
+            }
         }
     }
 
@@ -47,15 +51,20 @@ public abstract class Piece {
         return this.blocks;
     }
 
-    //check if block is bellow any of the piece
+    //check if block is below any of the piece
     public boolean stop(boolean[][] spots) {
         boolean check = false;
         for (Block block : blocks) {
+            try {
             if ((int) block.getPosition().y + this.position.y == 0) {
                 check = true;
+                break;
             } else if (spots[(int) this.position.y + (int) block.getPosition().y - 1][(int) this.position.x + (int) block.getPosition().x]) {
                 check = true;
-            } 
+                break;
+            }
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            }
         }
         return check;
     }

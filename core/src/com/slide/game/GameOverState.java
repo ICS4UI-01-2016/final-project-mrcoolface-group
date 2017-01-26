@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class GameOverState extends State{
     // instance variables
-    private int score;
     private BitmapFont font;
     private Texture bg;
 
@@ -45,12 +44,11 @@ public class GameOverState extends State{
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(getCombinedCamera());
         StateManager gsm = getStateManager();
-        gsm.getState(1).render(batch);
         batch.draw(bg, 0, 0, 800, 800);
         font.getData().setScale(5, 5);
         font.draw(batch, "GAME OVER", getViewWidth()/2 - 200, 600);
         font.draw(batch, "Score: ", getViewWidth()/2 - 100, 450);
-        font.draw(batch, "" + score, getViewWidth()/2 - 30, 300);
+        //font.draw(batch, "" + PlayState.getBoard().getScore(), getViewWidth()/2 - 30, 300);
         
 
     }

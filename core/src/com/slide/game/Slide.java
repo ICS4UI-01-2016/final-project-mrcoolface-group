@@ -33,7 +33,6 @@ public class Slide extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-                img.dispose();
 		batch.dispose();
 	}
 }

@@ -31,7 +31,7 @@ public class MenuState extends State{
         Preferences pref = Gdx.app.getPreferences("highscore");
         highScore = pref.getInteger("highscore", 0);
         font = new BitmapFont(); //default 15pt Arieal
-        
+        music.play();
     }
     
     public void updateScore(){

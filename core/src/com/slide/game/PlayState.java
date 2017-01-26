@@ -18,7 +18,6 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class PlayState extends State {
     // instance variables
-    private int score;
     private BitmapFont font;
     private Texture bg;
     private Texture pauseButton;
@@ -34,14 +33,13 @@ public class PlayState extends State {
         // load in pictures
         bg = new Texture("bg.png");
         pauseButton = new Texture("pauseButton.png");
-        // set up the score and font
-        score = 0;
+        // set up the font
         font = new BitmapFont();
         this.board = new Board(150, 50);
     }
 
-    public int getScore(){
-        return score;
+    public Board getBoard(){
+        return this.board;
     }
     
     @Override
@@ -51,7 +49,7 @@ public class PlayState extends State {
         batch.draw(bg, 0, 0, getViewWidth(), getViewHeight());
         batch.draw(pauseButton, 680, 680, 80, 80);
         // draw the score
-        font.draw(batch, "" + score, 150, 150);
+        font.draw(batch, "" + board.getScore(), 700, 200);
         //draw board
         board.render(batch);
     }

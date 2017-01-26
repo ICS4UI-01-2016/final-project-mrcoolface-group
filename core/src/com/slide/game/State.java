@@ -19,11 +19,12 @@ import com.badlogic.gdx.math.Vector3;
 public abstract class State {
     private OrthographicCamera cam;
     private StateManager stateManager;
-     Music music;
+    Music music;
     
     public State(StateManager sm){
         stateManager = sm;
         cam = new OrthographicCamera();
+        music = Gdx.audio.newMusic(Gdx.files.internal("tetrisMusic.mp3"));
     }
     
     public abstract void render(SpriteBatch batch);

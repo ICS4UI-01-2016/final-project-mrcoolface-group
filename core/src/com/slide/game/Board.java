@@ -25,6 +25,7 @@ public class Board {
     private boolean fastFall;
     private float delta;
     private boolean over = false;
+    private int score;
 
     public final int BOARD_WIDTH = 10;
     public final int BOARD_HEIGHT = 22;
@@ -188,15 +189,35 @@ public class Board {
             //add to time to keep track
             delta += deltaTime;
         }
-
-        /*for (int i = 0; i <= BOARD_HEIGHT; i++) {
-            if (lineCheck(i)) {
-                for (int j = 0; j <= 10; j++) {
-                    
+        
+        int rowNumber = 0;
+        // to clear the full lines 
+        // go through all 22 "rows"
+        for(boolean[] row : this.spots){
+            // check if the "row" is full
+            if(lineCheck(rowNumber)){
+                // find where in the arraylist the block at (columnNumber, rowNumber) is
+                // go through the arraylist
+                for(int i = 0; blocks.size() > i; i++){
+                    // if this block in the arraylist is at the position we want to remove
+                    if((blocks.get(i).getPosition().x >= 0 && blocks.get(i).getPosition().x <= 9) && blocks.get(i).getPosition().y == rowNumber){
+                        // remove the block
+                        blocks.remove(i);
+                        // mark the spots in the array as false
+                        spots[(int) blocks.get(i).getPosition().y][(int) blocks.get(i).getPosition().x] = false;
+                    }
                 }
+                score += 1;
             }
-        }*/
+            rowNumber += 1;
+        }
 
+    }
+    
+    
+    
+    public int getScore(){
+        return this.score;
     }
 
     public void handleInput() {
